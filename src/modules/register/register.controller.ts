@@ -7,7 +7,7 @@ export class RegisterController {
 
   //user
   @Get()
-  index() {
+  fhvgvhjgjkj() {
     return {
       status:true,
       message: 'User works!'

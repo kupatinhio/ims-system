@@ -9,7 +9,7 @@ export class PageService {
   }
 
   findAll() {
-    return `This action returns all page`;
+    return `all page`;
   }
 
   findOne(id: number) {
