@@ -1,19 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePageDto } from './dto/create-page.dto';
 import { UpdatePageDto } from './dto/update-page.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { PageEntity } from './entities/page.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PageService {
-  create(createPageDto: CreatePageDto) {
-    return 'This action adds a new page';
+
+  constructor(
+    @InjectRepository(PageEntity) private readonly repository: Repository<PageEntity>
+  ) { }
+
+  async create(createPageDto: CreatePageDto): Promise<PageEntity> {
+    const vNewRecord = this.repository.create(createPageDto);
+    return await this.repository.save(vNewRecord);
   }
 
-  findAll() {
-    return `all page`;
+  async findAll() {
+    return await this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} page`;
+  async findOne(id: number) {
+    return await this.repository.findOneBy({
+      id: id
+    });
   }
 
   update(id: number, updatePageDto: UpdatePageDto) {
